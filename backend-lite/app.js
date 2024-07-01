@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const authRoutes = require('./routers/auth.router'); // Assuming your authentication routes are in routes/auth.js
+const authRoutes = require('./routers/auth.router');
+const postRoutes = require('./routers/post.router');
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(bodyParser.json());
 
 // Routes
 app.use(authRoutes);
+app.use(postRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
