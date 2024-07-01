@@ -4,8 +4,8 @@ const User = require('./user.model');
 const Follower = require('./follower.model');
 const Following = require('./following.model');
 const Post = require("./post.model")
-const PostLikes = require("./post.model")
-const Comment = require("./post.model")
+const Like = require("./like.model")
+const Comment = require("./comment.model")
 
 // Establish relationships
 User.hasMany(Follower, { foreignKey: 'userId' });
@@ -34,6 +34,5 @@ module.exports = {
     Follower, 
     Following , 
     Post , 
-    Comment , 
-    PostLikes 
+    Like 
 };

@@ -14,10 +14,8 @@ module.exports = async (req, res, next) => {
     try {
         const payload = jwt.verify(token, Jwt_secret);
         const { _id } = payload;
-        console.log(_id);
 
         const user = await User.findOne({ where: { id: _id } });
-        console.log(user);
         if (!user) {
             return res.status(401).json({ error: "User not found or database error" });
         }

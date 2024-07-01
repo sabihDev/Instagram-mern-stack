@@ -1,0 +1,165 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Insta-Clone",
+    "collectionId": "55d7f41f-051d-4943-86b3-5c1836746268",
+    "dateExported": "2024-07-01T21:17:35.118Z",
+    "version": "1.2",
+    "folders": [
+        {
+            "_id": "dfe44ca4-9f38-4f37-9f1f-f141d76563f6",
+            "name": "Auth",
+            "containerId": "",
+            "created": "2024-07-01T17:47:48.005Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Post",
+            "containerId": "",
+            "created": "2024-07-01T19:40:59.043Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "081f4580-d77f-4275-810d-4363ec0ea499",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "dfe44ca4-9f38-4f37-9f1f-f141d76563f6",
+            "name": "Register User",
+            "url": "http://localhost:3000/signup",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-07-01T17:48:11.070Z",
+            "modified": "2024-07-01T18:28:25.719Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"John Doe\",\n    \"userName\": \"johndoe1232\",\n    \"email\": \"johndoe123@gmail.com\",\n    \"password\": \"securepassword\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "b516d3a6-abd0-4d74-bdcf-221381d55901",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "dfe44ca4-9f38-4f37-9f1f-f141d76563f6",
+            "name": "Login User",
+            "url": "http://localhost:3000/signin",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-07-01T17:48:18.403Z",
+            "modified": "2024-07-01T20:02:47.756Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\": \"johndoe123@gmail.com\",\n    \"password\": \"securepassword\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "0cfa6ba7-fbd0-4622-a761-d105800bb6ba",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Get All Posts",
+            "url": "http://localhost:3000/allposts",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-07-01T19:41:11.890Z",
+            "modified": "2024-07-01T20:45:14.758Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ]
+        },
+        {
+            "_id": "ee5d14f8-75eb-42d9-a1fb-03acb4a935d6",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Create Post",
+            "url": "http://localhost:3000/createPost",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2024-07-01T20:43:07.613Z",
+            "modified": "2024-07-01T20:45:34.347Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"body\": \"String\",  \n    \"pic\": \"String\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "0b834ea5-d008-4c74-991e-b6c8dcc1928f",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "My Post",
+            "url": "http://localhost:3000/myposts",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-07-01T20:47:20.583Z",
+            "modified": "2024-07-01T20:48:14.682Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"body\": \"String\",  \n    \"pic\": \"String\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "ed8195e5-2aed-4946-a7c9-daa030c3f3ae",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Liike a Post",
+            "url": "http://localhost:3000/like",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2024-07-01T20:56:19.423Z",
+            "modified": "2024-07-01T21:08:20.077Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"postId\": 1\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "c7a50447-fa66-4e21-a0fb-d5863f63e96f",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Unlike a post",
+            "url": "http://localhost:3000/unlike",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-07-01T21:15:28.787Z",
+            "modified": "2024-07-01T21:16:59.251Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"postId\": 1\n}\n",
+                "form": []
+            }
+        }
+    ],
+    "ref": "uEeWFUuwxHdz_iJkRU26rI5WpK9SbR-k1ZBWVBaQkqgVaQeaI6IJYplhpi1x_U6Ax74Vj7EaNe6yExFjkQPWAg"
+}

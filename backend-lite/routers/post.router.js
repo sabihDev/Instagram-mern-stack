@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Post, Comment } = require("../models"); // Adjust according to your Sequelize models
+const { User, Post, Comment, Like } = require("../models"); // Adjust according to your Sequelize models
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const { Jwt_secret } = require("../keys"); // Ensure you have a secure secret key
@@ -15,8 +15,8 @@ router.get("/allposts", requireLogin, (req, res) => {
         ],
         order: [['createdAt', 'DESC']]
     })
-    .then(posts => res.json(posts))
-    .catch(err => console.error('Error fetching posts:', err));
+        .then(posts => res.json(posts))
+        .catch(err => console.error('Error fetching posts:', err));
 });
 
 // Route to create a new post
@@ -59,12 +59,32 @@ router.get("/myposts", requireLogin, async (req, res) => {
 router.put("/like", requireLogin, async (req, res) => {
     const { postId } = req.body;
     try {
-        const post = await Post.findByPk(postId);
+        // Check if the post exists
+        const post = await Post.findOne({ like: { id: postId } });
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
         }
-        await post.addLike(req.user.id);
-        res.json(post);
+
+        // Check if the user has already liked the post
+        const alreadyLiked = await Like.findOne({
+            where: {
+                postId: post.id,
+                userId: req.user.id
+            }
+        });
+
+        if (alreadyLiked) {
+            return res.status(400).json({ error: "Post already liked by the user" });
+        }
+
+        console.log("At like");
+        // Create a new like record
+        await Like.create({
+            postId: postId,
+            userId: req.user.id
+        });
+
+        res.json({ message: "Post liked successfully" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });
@@ -75,17 +95,34 @@ router.put("/like", requireLogin, async (req, res) => {
 router.put("/unlike", requireLogin, async (req, res) => {
     const { postId } = req.body;
     try {
-        const post = await Post.findByPk(postId);
+        // Find the post by postId
+        const post = await Post.findOne({ like: { id: postId } });
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
         }
-        await post.removeLike(req.user.id);
-        res.json(post);
+
+        // Check if the user has already liked the post
+        const like = await Like.findOne({
+            where: {
+                postId: postId,
+                userId: req.user.id
+            }
+        });
+
+        if (!like) {
+            return res.status(400).json({ error: "Post not liked by the user" });
+        }
+
+        // Remove the like
+        await like.destroy();
+
+        res.json({ message: "Post unliked successfully" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 // Route to add a comment to a post
 router.put("/comment", requireLogin, async (req, res) => {
