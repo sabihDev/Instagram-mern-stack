@@ -132,7 +132,7 @@ router.put("/comment", requireLogin, async (req, res) => {
     }
     try {
         const post = await Post.findByPk(postId);
-        
+
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
         }
@@ -169,24 +169,23 @@ router.delete("/deletePost/:postId", requireLogin, async (req, res) => {
     }
 });
 
-// Route to get posts from users that the logged-in user is following
-router.get("/myfollowingpost", requireLogin, async (req, res) => {
+
+// Route to get user profile
+router.get("/user/:id", async (req, res) => {
     try {
-        const following = await User.findOne({
-            where: { id: req.user.id },
-            attributes: [],
-            include: [{ model: User, as: 'following' }]
+        const user = await User.findByPk(req.params.id, {
+            attributes: { exclude: ['password'] }
         });
-        const followingIds = following.following.map(user => user.id);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
         const posts = await Post.findAll({
-            where: { userId: { [Op.in]: followingIds } },
-            include: [
-                { model: User, as: 'postedBy', attributes: ['id', 'name'] },
-                { model: Comment, include: [{ model: User, as: 'commentedBy', attributes: ['id', 'name'] }] }
-            ],
-            order: [['createdAt', 'DESC']]
+            where: { userId: req.params.id },
         });
-        res.json(posts);
+
+        res.status(200).json({ user, posts });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });
