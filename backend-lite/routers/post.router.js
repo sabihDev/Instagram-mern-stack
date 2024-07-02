@@ -159,6 +159,8 @@ router.delete("/deletePost/:postId", requireLogin, async (req, res) => {
         if (post.userId !== req.user.id) {
             return res.status(403).json({ error: "Unauthorized to delete this post" });
         }
+        await Comment.destroy({ where: { postId } });
+        await Like.destroy({ where: { postId } });
         await post.destroy();
         res.json({ message: "Post deleted successfully" });
     } catch (err) {
