@@ -8,15 +8,38 @@ const { Op } = require("sequelize");
 const requireLogin = require("../middlewares/requireLogin");
 
 // Route to get all posts
-router.get("/allposts", requireLogin, (req, res) => {
-    Post.findAll({
-        include: [
-            { model: User, as: 'postedBy', attributes: ['id', 'name', 'photo'] },
-        ],
-        order: [['createdAt', 'DESC']]
-    })
-        .then(posts => res.json(posts))
-        .catch(err => console.error('Error fetching posts:', err));
+router.get("/allposts", requireLogin, async (req, res) => {
+    try {
+        // Fetch all posts with the user who posted each post
+        let posts = await Post.findAll({
+            include: [
+                { model: User, as: 'postedBy', attributes: ['id', 'name', 'photo'] },
+            ],
+            order: [['createdAt', 'DESC']]
+        });
+
+        // Fetch comments for each post
+        for (let post of posts) {
+            let comments = await Comment.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'text', 'createdAt'],
+            });
+            post.dataValues.comments = comments; // Attach comments to each post
+
+             // Fetch likes for each post
+             let likes = await Like.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'userId'], // Adjust attributes as needed
+            });
+            post.dataValues.likes = likes; // Attach likes to each post
+
+        }
+
+        res.json(posts);
+    } catch (err) {
+        console.error('Error fetching posts:', err);
+        res.status(500).json({ error: 'Error fetching posts' });
+    }
 });
 
 // Route to create a new post

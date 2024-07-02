@@ -28,4 +28,5 @@ const Comment = sequelize.define('Comment', {
     timestamps: true // Automatically manages createdAt and updatedAt fields
 });
 
+
 module.exports = Comment;
