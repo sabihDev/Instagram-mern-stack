@@ -4,7 +4,7 @@ const User = require('./user.model'); // Assuming the User model is in the same 
 const Post = require('./post.model'); // Assuming the Post model is in the same directory
 
 const Comment = sequelize.define('Comment', {
-    comment: {
+    text: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -12,7 +12,7 @@ const Comment = sequelize.define('Comment', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Post',
+            model: Post,
             key: 'id'
         }
     },
@@ -20,7 +20,7 @@ const Comment = sequelize.define('Comment', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'User',
+            model: User,
             key: 'id'
         }
     }

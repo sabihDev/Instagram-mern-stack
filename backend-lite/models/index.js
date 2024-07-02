@@ -34,5 +34,6 @@ module.exports = {
     Follower, 
     Following , 
     Post , 
-    Like 
+    Like ,
+    Comment
 };
