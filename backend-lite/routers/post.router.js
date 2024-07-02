@@ -123,7 +123,6 @@ router.put("/unlike", requireLogin, async (req, res) => {
     }
 });
 
-
 // Route to add a comment to a post
 router.put("/comment", requireLogin, async (req, res) => {
     const { postId, text } = req.body;
@@ -169,7 +168,6 @@ router.delete("/deletePost/:postId", requireLogin, async (req, res) => {
     }
 });
 
-
 // Route to get user profile
 router.get("/user/:id", async (req, res) => {
     try {
@@ -186,6 +184,103 @@ router.get("/user/:id", async (req, res) => {
         });
 
         res.status(200).json({ user, posts });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+router.put("/follow", requireLogin, async (req, res) => {
+    const { followId } = req.body;
+
+    try {
+        const userToFollow = await User.findByPk(followId);
+        if (!userToFollow) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const currentUser = await User.findByPk(req.user.id);
+
+        await currentUser.addFollowing(userToFollow);
+        await userToFollow.addFollower(currentUser);
+
+        res.json({ message: "Followed successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Route to unfollow a user
+router.put("/unfollow", requireLogin, async (req, res) => {
+    const { followId } = req.body;
+
+    try {
+        const userToUnfollow = await User.findByPk(followId);
+        if (!userToUnfollow) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const currentUser = await User.findByPk(req.user.id);
+
+        await currentUser.removeFollowing(userToUnfollow);
+        await userToUnfollow.removeFollower(currentUser);
+
+        res.json({ message: "Unfollowed successfully" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Route to upload profile picture
+router.put("/uploadProfilePic", requireLogin, async (req, res) => {
+    const { pic } = req.body;
+
+    if (!pic) {
+        return res.status(422).json({ error: "No picture provided" });
+    }
+
+    try {
+        const updatedUser = await User.update(
+            { photo: pic },
+            { where: { id: req.user.id }, returning: true, plain: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        res.json(updatedUser[1]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+// Route to show posts from followed users
+router.get("/myfollowingposts", requireLogin, async (req, res) => {
+    try {
+        const user = await User.findByPk(req.user.id, {
+            include: [{
+                model: User,
+                as: 'following',
+                attributes: ['id']
+            }]
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const followingIds = user.following.map(followingUser => followingUser.id);
+
+        const posts = await Post.findAll({
+            where: { userId: followingIds },
+            order: [['createdAt', 'DESC']]
+        });
+
+        res.json(posts);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });

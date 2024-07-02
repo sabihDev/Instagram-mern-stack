@@ -23,4 +23,18 @@ const User = sequelize.define('Users', {
     }
 });
 
+User.belongsToMany(User, {
+    through: 'UserFollowers',
+    as: 'followers',
+    foreignKey: 'userId',
+    otherKey: 'followerId'
+});
+
+User.belongsToMany(User, {
+    through: 'UserFollowers',
+    as: 'following',
+    foreignKey: 'followerId',
+    otherKey: 'userId'
+});
+
 module.exports = User;
