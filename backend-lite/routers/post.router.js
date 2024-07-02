@@ -98,10 +98,12 @@ router.get("/myposts", requireLogin, async (req, res) => {
 
 // Route to like a post
 router.put("/like", requireLogin, async (req, res) => {
+
     const { postId } = req.body;
     try {
         // Check if the post exists
-        const post = await Post.findOne({ like: { id: postId } });
+        const post = await Post.findByPk(postId);
+        console.log(post);
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
         }
@@ -137,7 +139,7 @@ router.put("/unlike", requireLogin, async (req, res) => {
     const { postId } = req.body;
     try {
         // Find the post by postId
-        const post = await Post.findOne({ like: { id: postId } });
+        const post = await Post.findByPk(postId);
         if (!post) {
             return res.status(404).json({ error: "Post not found" });
         }
@@ -220,9 +222,26 @@ router.get("/user/:id", async (req, res) => {
             return res.status(404).json({ error: "User not found" });
         }
 
+
         const posts = await Post.findAll({
             where: { userId: req.params.id },
         });
+
+        for (let post of posts) {
+            let comments = await Comment.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'text', 'createdAt'],
+            });
+            post.dataValues.comments = comments; // Attach comments to each post
+
+            // Fetch likes for each post
+            let likes = await Like.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'userId'], // Adjust attributes as needed
+            });
+            post.dataValues.likes = likes; // Attach likes to each post
+
+        }
 
         res.status(200).json({ user, posts });
     } catch (err) {
