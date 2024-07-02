@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Insta-Clone",
     "collectionId": "55d7f41f-051d-4943-86b3-5c1836746268",
-    "dateExported": "2024-07-01T21:17:35.118Z",
+    "dateExported": "2024-07-02T19:28:47.962Z",
     "version": "1.2",
     "folders": [
         {
@@ -159,7 +159,151 @@
                 "raw": "{\n    \"postId\": 1\n}\n",
                 "form": []
             }
+        },
+        {
+            "_id": "2cbbeee7-104d-44b2-9b0d-aeb32d76dcb9",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Delete Post",
+            "url": "http://localhost:3000/deletePost/1",
+            "method": "DELETE",
+            "sortNum": 75000,
+            "created": "2024-07-02T18:55:48.047Z",
+            "modified": "2024-07-02T18:57:13.377Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"postId\": 1\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "10eb04a7-4075-414f-b410-2120f5c36de2",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Add Comment",
+            "url": "http://localhost:3000/comment",
+            "method": "PUT",
+            "sortNum": 80000,
+            "created": "2024-07-02T15:53:00.648Z",
+            "modified": "2024-07-02T18:49:24.567Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"postId\": 1,\n    \"text\" : \"Nice Post\"\n}\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "b3d17785-a072-44f5-8310-54aa3dd9a615",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Get User Profile",
+            "url": "http://localhost:3000/user/1",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-07-02T19:04:03.091Z",
+            "modified": "2024-07-02T19:05:13.129Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ]
+        },
+        {
+            "_id": "82ed69f2-b72b-4b5d-a984-dfbe07d17e6d",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Follow A User",
+            "url": "http://localhost:3000/follow",
+            "method": "PUT",
+            "sortNum": 100000,
+            "created": "2024-07-02T19:10:39.171Z",
+            "modified": "2024-07-02T19:11:59.969Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"followId\" : 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "f2357ed1-db85-4161-8347-b48dcd49d397",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Unfollow",
+            "url": "http://localhost:3000/uploadProfilePic",
+            "method": "PUT",
+            "sortNum": 110000,
+            "created": "2024-07-02T19:13:53.647Z",
+            "modified": "2024-07-02T19:17:34.094Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"pic\" : \"1.png\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "b5a506d4-66e5-4c0a-b34d-ff49274d8d3e",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "Upload Photo",
+            "url": "http://localhost:3000/unfollow",
+            "method": "PUT",
+            "sortNum": 120000,
+            "created": "2024-07-02T19:16:04.821Z",
+            "modified": "2024-07-02T19:16:04.821Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"followId\" : 1\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "81ea1739-a496-4c89-8f8f-5076d83589a3",
+            "colId": "55d7f41f-051d-4943-86b3-5c1836746268",
+            "containerId": "e1821231-ed75-40ee-b64f-e492c718ead9",
+            "name": "My Following Posts",
+            "url": "http://localhost:3000/myfollowingposts",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2024-07-02T19:19:33.346Z",
+            "modified": "2024-07-02T19:27:15.846Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsImlhdCI6MTcxOTg2NDQ0NX0.1S0hBvVpppL2s1Ru0S0nVa2hQrgIEFgpUOBkgkSYJ1A"
+                }
+            ]
         }
     ],
-    "ref": "uEeWFUuwxHdz_iJkRU26rI5WpK9SbR-k1ZBWVBaQkqgVaQeaI6IJYplhpi1x_U6Ax74Vj7EaNe6yExFjkQPWAg"
+    "ref": "uEeWFUuwxHdz_iJkRU26rEFS7ZeuEPJGxVLVC3wx2a8bidds0NB_OFp7CwfN0L-OgcueeHZMqsAoyyxvLAibQQ"
 }
