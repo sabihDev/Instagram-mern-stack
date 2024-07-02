@@ -26,8 +26,8 @@ router.get("/allposts", requireLogin, async (req, res) => {
             });
             post.dataValues.comments = comments; // Attach comments to each post
 
-             // Fetch likes for each post
-             let likes = await Like.findAll({
+            // Fetch likes for each post
+            let likes = await Like.findAll({
                 where: { postId: post.id },
                 attributes: ['id', 'userId'], // Adjust attributes as needed
             });
@@ -64,14 +64,32 @@ router.post("/createPost", requireLogin, async (req, res) => {
 // Route to get logged-in user's posts
 router.get("/myposts", requireLogin, async (req, res) => {
     try {
-        const myPosts = await Post.findAll({
+        const posts = await Post.findAll({
             where: { userId: req.user.id },
             include: [
                 { model: User, as: 'postedBy', attributes: ['id', 'name'] },
             ],
             order: [['createdAt', 'DESC']]
         });
-        res.json(myPosts);
+
+        // Fetch comments for each post
+        for (let post of posts) {
+            let comments = await Comment.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'text', 'createdAt'],
+            });
+            post.dataValues.comments = comments; // Attach comments to each post
+
+            // Fetch likes for each post
+            let likes = await Like.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'userId'], // Adjust attributes as needed
+            });
+            post.dataValues.likes = likes; // Attach likes to each post
+
+        }
+
+        res.json(posts);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });
@@ -302,6 +320,23 @@ router.get("/myfollowingposts", requireLogin, async (req, res) => {
             where: { userId: followingIds },
             order: [['createdAt', 'DESC']]
         });
+
+        for (let post of posts) {
+            let comments = await Comment.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'text', 'createdAt'],
+            });
+            post.dataValues.comments = comments; // Attach comments to each post
+
+            // Fetch likes for each post
+            let likes = await Like.findAll({
+                where: { postId: post.id },
+                attributes: ['id', 'userId'], // Adjust attributes as needed
+            });
+            post.dataValues.likes = likes; // Attach likes to each post
+
+        }
+
 
         res.json(posts);
     } catch (err) {
