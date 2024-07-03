@@ -122,12 +122,13 @@ router.put("/like", requireLogin, async (req, res) => {
 
         console.log("At like");
         // Create a new like record
-        await Like.create({
+        const like = await Like.create({
             postId: postId,
             userId: req.user.id
         });
 
-        res.json({ message: "Post liked successfully" });
+
+        res.json({ data: like, message: "Post liked successfully" });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Internal server error" });

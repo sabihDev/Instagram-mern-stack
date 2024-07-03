@@ -31,6 +31,8 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result);
+        console.log(result[0].likes);
+        console.log(JSON.parse(localStorage.getItem("user")).id);
         setData(result);
       })
       .catch((err) => console.log(err));
@@ -38,6 +40,7 @@ export default function Home() {
 
   // to show and hide comments
   const toggleComment = (posts) => {
+    console.log(posts);
     if (show) {
       setShow(false);
     } else {
@@ -47,6 +50,7 @@ export default function Home() {
   };
 
   const likePost = (id) => {
+    console.log(id);
     fetch("http://localhost:5000/like", {
       method: "put",
       headers: {
@@ -60,7 +64,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id == result._id) {
+          if (posts.id == result.id) {
             return result;
           } else {
             return posts;
@@ -84,7 +88,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id == result._id) {
+          if (posts.id == result.id) {
             return result;
           } else {
             return posts;
@@ -111,7 +115,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((result) => {
         const newData = data.map((posts) => {
-          if (posts._id == result._id) {
+          if (posts.id == result.id) {
             return result;
           } else {
             return posts;
@@ -127,7 +131,7 @@ export default function Home() {
   return (
     <div className="home">
       {/* card */}
-      {data.map((posts) => {
+      {data && data.map((posts) => {
         return (
           <div className="card">
             {/* card header */}
@@ -139,7 +143,7 @@ export default function Home() {
                 />
               </div>
               <h5>
-                <Link to={`/profile/${posts.postedBy._id}`}>
+                <Link to={`/profile/${posts.postedBy.id}`}>
                   {posts.postedBy.name}
                 </Link>
               </h5>
@@ -151,13 +155,11 @@ export default function Home() {
 
             {/* card content */}
             <div className="card-content">
-              {posts.likes.includes(
-                JSON.parse(localStorage.getItem("user"))._id
-              ) ? (
+              {posts.likes.some(like => like.userId === JSON.parse(localStorage.getItem("user")).id) ? (
                 <span
                   className="material-symbols-outlined material-symbols-outlined-red"
                   onClick={() => {
-                    unlikePost(posts._id);
+                    unlikePost(posts.id);
                   }}
                 >
                   favorite
@@ -166,7 +168,7 @@ export default function Home() {
                 <span
                   className="material-symbols-outlined"
                   onClick={() => {
-                    likePost(posts._id);
+                    likePost(posts.id);
                   }}
                 >
                   favorite
@@ -199,7 +201,7 @@ export default function Home() {
               <button
                 className="comment"
                 onClick={() => {
-                  makeComment(comment, posts._id);
+                  makeComment(comment, posts.id);
                 }}
               >
                 Post
@@ -271,7 +273,7 @@ export default function Home() {
                 <button
                   className="comment"
                   onClick={() => {
-                    makeComment(comment, item._id);
+                    makeComment(comment, item.id);
                     toggleComment();
                   }}
                 >
