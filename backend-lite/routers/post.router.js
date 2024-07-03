@@ -20,10 +20,20 @@ router.get("/allposts", requireLogin, async (req, res) => {
 
         // Fetch comments for each post
         for (let post of posts) {
+            // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt'],
+                attributes: ['id', 'text', 'createdAt' , 'userId' ],
             });
+
+            // Add user data to each comment
+            for (let comment of comments) {
+                let user = await User.findByPk(comment.userId, {
+                    attributes: ['id', 'name' , 'username']
+            });
+                comment.dataValues.postedBy = user;
+            }
+
             post.dataValues.comments = comments; // Attach comments to each post
 
             // Fetch likes for each post
@@ -74,10 +84,20 @@ router.get("/myposts", requireLogin, async (req, res) => {
 
         // Fetch comments for each post
         for (let post of posts) {
+            // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt'],
+                attributes: ['id', 'text', 'createdAt' , 'userId' ],
             });
+
+            // Add user data to each comment
+            for (let comment of comments) {
+                let user = await User.findByPk(comment.userId, {
+                    attributes: ['id', 'name' , 'username']
+            });
+                comment.dataValues.postedBy = user;
+            }
+
             post.dataValues.comments = comments; // Attach comments to each post
 
             // Fetch likes for each post
@@ -88,6 +108,7 @@ router.get("/myposts", requireLogin, async (req, res) => {
             post.dataValues.likes = likes; // Attach likes to each post
 
         }
+
 
         res.json(posts);
     } catch (err) {
@@ -228,11 +249,22 @@ router.get("/user/:id", async (req, res) => {
             where: { userId: req.params.id },
         });
 
+        // Fetch comments for each post
         for (let post of posts) {
+            // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt'],
+                attributes: ['id', 'text', 'createdAt' , 'userId' ],
             });
+
+            // Add user data to each comment
+            for (let comment of comments) {
+                let user = await User.findByPk(comment.userId, {
+                    attributes: ['id', 'name' , 'username']
+            });
+                comment.dataValues.postedBy = user;
+            }
+
             post.dataValues.comments = comments; // Attach comments to each post
 
             // Fetch likes for each post
@@ -243,6 +275,7 @@ router.get("/user/:id", async (req, res) => {
             post.dataValues.likes = likes; // Attach likes to each post
 
         }
+
 
         res.status(200).json({ user, posts });
     } catch (err) {
@@ -341,11 +374,22 @@ router.get("/myfollowingposts", requireLogin, async (req, res) => {
             order: [['createdAt', 'DESC']]
         });
 
+        // Fetch comments for each post
         for (let post of posts) {
+            // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt'],
+                attributes: ['id', 'text', 'createdAt' , 'userId' ],
             });
+
+            // Add user data to each comment
+            for (let comment of comments) {
+                let user = await User.findByPk(comment.userId, {
+                    attributes: ['id', 'name' , 'username']
+            });
+                comment.dataValues.postedBy = user;
+            }
+
             post.dataValues.comments = comments; // Attach comments to each post
 
             // Fetch likes for each post
@@ -356,7 +400,6 @@ router.get("/myfollowingposts", requireLogin, async (req, res) => {
             post.dataValues.likes = likes; // Attach likes to each post
 
         }
-
 
         res.json(posts);
     } catch (err) {
