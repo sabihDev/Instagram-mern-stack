@@ -4,7 +4,7 @@ const { User } = require("../models"); // Adjust according to your Sequelize mod
 
 module.exports = async (req, res, next) => {
     const { authorization } = req.headers;
-
+console.log(req.headers);
     if (!authorization) {
         return res.status(401).json({ error: "You must be logged in 1" });
     }
@@ -16,6 +16,7 @@ module.exports = async (req, res, next) => {
         const { _id } = payload;
 
         const user = await User.findOne({ where: { id: _id } });
+        console.log(user);
         if (!user) {
             return res.status(401).json({ error: "User not found or database error" });
         }

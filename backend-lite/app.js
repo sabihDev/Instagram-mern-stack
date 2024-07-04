@@ -20,7 +20,9 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
 });
 
-// Start the server
+module.exports = app; // Export the Express app
+
+// Start the server (you might want to comment this out when running tests)
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
