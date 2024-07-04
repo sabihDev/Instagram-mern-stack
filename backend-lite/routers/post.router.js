@@ -237,7 +237,11 @@ router.delete("/deletePost/:postId", requireLogin, async (req, res) => {
 router.get("/user/:id", async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id, {
-            attributes: { exclude: ['password'] }
+            attributes: { exclude: ['password'] },
+            include: [
+                { model: User, as: 'followers', attributes: ['id', 'name', 'username'] },
+                { model: User, as: 'following', attributes: ['id', 'name', 'username'] }
+            ]
         });
 
         if (!user) {
