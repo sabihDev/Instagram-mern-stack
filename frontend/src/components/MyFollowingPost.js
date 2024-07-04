@@ -22,7 +22,7 @@ export default function MyFolliwngPost() {
     }
 
     // Fetching all posts
-    fetch("http://localhost:5000/myfollwingpost", {
+    fetch("http://localhost:5000/myfollowingposts", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -138,7 +138,7 @@ export default function MyFolliwngPost() {
                 />
               </div>
               <h5>
-                <Link to={`/profile/${posts.postedBy._id}`}>
+                <Link to={`/profile/${posts.postedBy.id}`}>
                   {posts.postedBy.name}
                 </Link>
               </h5>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function PostDetail({ item, toggleDetails }) {
+  console.log(item);
   const navigate = useNavigate();
 
   // Toast functions
@@ -50,7 +51,7 @@ export default function PostDetail({ item, toggleDetails }) {
             <div
               className="deletePost"
               onClick={() => {
-                removePost(item._id);
+                removePost(item.id);
               }}
             >
               <span className="material-symbols-outlined">delete</span>
@@ -68,7 +69,7 @@ export default function PostDetail({ item, toggleDetails }) {
                   <span className="commenter" style={{ fontWeight: "bolder" }}>
                     {comment.postedBy.name}{" "}
                   </span>
-                  <span className="commentText">{comment.comment}</span>
+                  <span className="commentText">{comment.text}</span>
                 </p>
               );
             })}

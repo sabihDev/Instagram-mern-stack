@@ -23,6 +23,7 @@ export default function SignIn() {
       notifyA("Invalid email")
       return
     }
+    console.log(email,password);
     // Sending data to server
     fetch("http://localhost:5000/signin", {
       method: "post",

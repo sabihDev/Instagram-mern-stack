@@ -60,7 +60,7 @@ export default function UserProfie() {
       .then((result) => {
         console.log(result);
         setUser(result.user);
-        setPosts(result.post);
+        setPosts(result.posts);
         if (
           result.user.followers.includes(
             JSON.parse(localStorage.getItem("user"))._id

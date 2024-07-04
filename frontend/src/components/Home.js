@@ -70,7 +70,20 @@ export default function Home() {
             return posts;
           }
         });
-        setData(newData);
+
+        fetch("http://localhost:5000/allposts", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            console.log(result);
+            console.log(result[0].likes);
+            console.log(JSON.parse(localStorage.getItem("user")).id);
+            setData(result);
+          })
+          .catch((err) => console.log(err))
         console.log(result);
       });
   };
@@ -94,7 +107,19 @@ export default function Home() {
             return posts;
           }
         });
-        setData(newData);
+        fetch("http://localhost:5000/allposts", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            console.log(result);
+            console.log(result[0].likes);
+            console.log(JSON.parse(localStorage.getItem("user")).id);
+            setData(result);
+          })
+          .catch((err) => console.log(err))
         console.log(result);
       });
   };
@@ -114,14 +139,20 @@ export default function Home() {
     })
       .then((res) => res.json())
       .then((result) => {
-        const newData = data.map((posts) => {
-          if (posts.id == result.id) {
-            return result;
-          } else {
-            return posts;
-          }
-        });
-        setData(newData);
+    
+        fetch("http://localhost:5000/allposts", {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            console.log(result);
+            console.log(result[0].likes);
+            console.log(JSON.parse(localStorage.getItem("user")).id);
+            setData(result);
+          })
+          .catch((err) => console.log(err))
         setComment("");
         notifyB("Comment posted");
         console.log(result);
@@ -247,7 +278,7 @@ export default function Home() {
                       >
                         {comment.postedBy.name}{" "}
                       </span>
-                      <span className="commentText">{comment.comment}</span>
+                      <span className="commentText">{comment.text}</span>
                     </p>
                   );
                 })}

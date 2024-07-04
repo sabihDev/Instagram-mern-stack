@@ -31,7 +31,7 @@ export default function Profie() {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${JSON.parse(localStorage.getItem("user"))._id}`, {
+    fetch(`http://localhost:5000/user/${JSON.parse(localStorage.getItem("user")).id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -39,7 +39,7 @@ export default function Profie() {
       .then((res) => res.json())
       .then((result) => {
         console.log(result)
-        setPic(result.post);
+        setPic(result.posts);
         setUser(result.user)
         console.log(pic);
       });
@@ -53,7 +53,7 @@ export default function Profie() {
         <div className="profile-pic">
           <img
             onClick={changeprofile}
-            src={user.Photo ? user.Photo : picLink}
+            src={user.photo ? user.photo : picLink}
             alt=""
           />
         </div>
@@ -78,7 +78,7 @@ export default function Profie() {
       {/* Gallery */}
       <div className="gallery">
         {pic.map((pics) => {
-          return <img key={pics._id} src={pics.photo}
+          return <img key={pics.id} src={pics.photo}
             onClick={() => {
               toggleDetails(pics)
             }}

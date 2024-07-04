@@ -23,14 +23,14 @@ router.get("/allposts", requireLogin, async (req, res) => {
             // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt' , 'userId' ],
+                attributes: ['id', 'text', 'createdAt', 'userId'],
             });
 
             // Add user data to each comment
             for (let comment of comments) {
                 let user = await User.findByPk(comment.userId, {
-                    attributes: ['id', 'name' , 'username']
-            });
+                    attributes: ['id', 'name', 'username']
+                });
                 comment.dataValues.postedBy = user;
             }
 
@@ -87,14 +87,14 @@ router.get("/myposts", requireLogin, async (req, res) => {
             // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt' , 'userId' ],
+                attributes: ['id', 'text', 'createdAt', 'userId'],
             });
 
             // Add user data to each comment
             for (let comment of comments) {
                 let user = await User.findByPk(comment.userId, {
-                    attributes: ['id', 'name' , 'username']
-            });
+                    attributes: ['id', 'name', 'username']
+                });
                 comment.dataValues.postedBy = user;
             }
 
@@ -247,6 +247,10 @@ router.get("/user/:id", async (req, res) => {
 
         const posts = await Post.findAll({
             where: { userId: req.params.id },
+            include: [
+                { model: User, as: 'postedBy', attributes: ['id', 'name', 'photo'] },
+            ],
+            order: [['createdAt', 'DESC']]
         });
 
         // Fetch comments for each post
@@ -254,14 +258,14 @@ router.get("/user/:id", async (req, res) => {
             // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt' , 'userId' ],
+                attributes: ['id', 'text', 'createdAt', 'userId'],
             });
 
             // Add user data to each comment
             for (let comment of comments) {
                 let user = await User.findByPk(comment.userId, {
-                    attributes: ['id', 'name' , 'username']
-            });
+                    attributes: ['id', 'name', 'username']
+                });
                 comment.dataValues.postedBy = user;
             }
 
@@ -371,6 +375,9 @@ router.get("/myfollowingposts", requireLogin, async (req, res) => {
 
         const posts = await Post.findAll({
             where: { userId: followingIds },
+            include: [
+                { model: User, as: 'postedBy', attributes: ['id', 'name', 'photo'] },
+            ],
             order: [['createdAt', 'DESC']]
         });
 
@@ -379,14 +386,14 @@ router.get("/myfollowingposts", requireLogin, async (req, res) => {
             // Fetch comments with user data
             let comments = await Comment.findAll({
                 where: { postId: post.id },
-                attributes: ['id', 'text', 'createdAt' , 'userId' ],
+                attributes: ['id', 'text', 'createdAt', 'userId'],
             });
 
             // Add user data to each comment
             for (let comment of comments) {
                 let user = await User.findByPk(comment.userId, {
-                    attributes: ['id', 'name' , 'username']
-            });
+                    attributes: ['id', 'name', 'username']
+                });
                 comment.dataValues.postedBy = user;
             }
 

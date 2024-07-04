@@ -41,7 +41,13 @@ export default function Navbar({ login }) {
 
   return (
     <div className="navbar">
-      <img src={logo} alt="" />
+      <figure>
+        <Link to="/">
+          <img src={logo} alt="" />
+        </Link>
+      </figure>
+
+
       <ul className="nav-menu">{loginStatus()}</ul>
     </div>
   );
