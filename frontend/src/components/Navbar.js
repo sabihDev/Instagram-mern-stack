@@ -40,7 +40,7 @@ export default function Navbar({ login }) {
   };
 
   return (
-    <div className="navbar">
+    <div className={`navbar ${login ? "login" : "vnone"}`}>
       <img src={logo} alt="" />
       <ul className="nav-menu">{loginStatus()}</ul>
     </div>

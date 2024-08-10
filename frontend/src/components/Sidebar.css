@@ -1,0 +1,81 @@
+.sidenav {
+    width: 20%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Instagram Sans', sans-serif;
+  z-index: 1;
+  /* border:1px solid yellow; */
+  border-right: 1px solid grey;
+}
+
+.sidenav__logo {
+  width: 120px;
+  object-fit: contain;
+  margin: 25px;
+}
+
+.sidenav__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav__button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  background-color: transparent;
+  border: 0;
+  margin: 5px 10px 5px 10px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 15px;
+  width: 100%;
+}
+
+.sidenav__button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.128);
+}
+
+.sidenav__button.col span{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap:30px;
+}
+
+.sidenav__button.col{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.sidenav__button > span {
+  font-size: 18px;
+  font-weight: bolder;
+  margin-left: 10px;
+}
+
+.sidenav__more {
+  position: fixed;
+  bottom: 3px;
+}
+
+.logout__button {
+  width: 50%;
+  translate: -50px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.211);
+  border: 0;
+  padding: 10px;
+}
+
+.logout__button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.424);
+}

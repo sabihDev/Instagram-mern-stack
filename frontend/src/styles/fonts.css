@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'Instagram Sans';
+  src: url('../assets/fonts/Instagram Sans.ttf') format('truetype'); /* Adjust the path if needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instagram Sans Headline';
+  src: url('../assets/fonts/Instagram Sans Headline.otf') format('opentype'); /* Adjust the path if needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instagram Sans Light';
+  src: url('../assets/fonts/Instagram Sans Light.ttf') format('truetype'); /* Adjust the path if needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instagram Sans Medium';
+  src: url('../assets/fonts/Instagram Sans Medium.ttf') format('truetype'); /* Adjust the path if needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Instagram Sans Bold';
+  src: url('../assets/fonts/Instagram Sans Bold.ttf') format('truetype'); /* Adjust the path if needed */
+  font-weight: normal;
+  font-style: normal;
+}

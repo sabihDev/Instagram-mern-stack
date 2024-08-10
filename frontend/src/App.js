@@ -24,7 +24,8 @@ function App() {
         <LoginContext.Provider value={{ setUserLogin, setModalOpen }}>
           <Navbar login={userLogin} />
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<Home />}>
+              </Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/signin" element={<SignIn />}></Route>
             <Route exact path="/profile" element={<Profie />}></Route>
